@@ -1,0 +1,71 @@
+{
+  "taken_at": "2026-08-08T08:54:58.855Z",
+  "note": "pre-workforce-migration snapshot",
+  "data": {
+    "companies": [
+      {
+        "id": 1,
+        "name": "Dangote Industries",
+        "industry": "Oil and Gas",
+        "country": "Kenya",
+        "created_at": "2026-08-07T06:50:58.015Z"
+      },
+      {
+        "id": 2,
+        "name": "Lamu Port Engineering Ltd",
+        "industry": "Infrastructure",
+        "country": "Kenya",
+        "created_at": "2026-08-08T04:09:59.282Z"
+      }
+    ],
+    "users": [
+      {
+        "id": 1,
+        "company_id": 1,
+        "name": "Anthony Admin",
+        "email": "admin@industrafow.com",
+        "password": "$2b$10$XB07zDXl8yTijFf9y6qkP.sfKjvxTd26.p0YfRVoUg8kpQYyk5xpG",
+        "role": "COMPANY_ADMIN",
+        "created_at": "2026-08-07T06:50:58.424Z"
+      },
+      {
+        "id": 2,
+        "company_id": 2,
+        "name": "Second Admin",
+        "email": "admin2@lamuport.com",
+        "password": "$2b$10$SKHM9y399odzscO1M1zGaeTPDWz/UcHslGlDL.6.rG4afxB3WR/Mi",
+        "role": "COMPANY_ADMIN",
+        "created_at": "2026-08-08T04:09:59.829Z"
+      }
+    ],
+    "projects": [
+      {
+        "id": 2,
+        "company_id": 1,
+        "name": "Lamu Industrial Development Project",
+        "location": "Lamu County",
+        "description": "Industrial infrastructure development project.",
+        "status": "planning",
+        "start_date": "2026-09-30T21:00:00.000Z",
+        "end_date": "2029-12-30T21:00:00.000Z",
+        "created_at": "2026-08-08T03:44:01.225Z"
+      }
+    ],
+    "contractors": [
+      {
+        "id": 3,
+        "project_id": 2,
+        "company_name": "HACKED COMPANY",
+        "contact_person": "Unauthorized User",
+        "email": "test@securitytest.com",
+        "phone": "+254700000000",
+        "certification_status": "verified",
+        "created_at": "2026-08-08T04:03:58.715Z"
+      }
+    ],
+    "workers": [],
+    "suppliers": [],
+    "assets": [],
+    "compliance_documents": []
+  }
+}
