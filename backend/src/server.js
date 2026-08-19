@@ -11,6 +11,7 @@ const contractorRoutes = require("./routes/contractors");
 const workerRoutes = require("./routes/workers");
 const workerAssignmentRoutes = require("./routes/workerAssignments");
 const workerCertificationRoutes = require("./routes/workerCertifications");
+const supplierRoutes = require("./routes/suppliers");
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use("/api/contractors", contractorRoutes);
 app.use("/api/workers", workerRoutes);
 app.use("/api/worker-assignments", workerAssignmentRoutes);
 app.use("/api/worker-certifications", workerCertificationRoutes);
+app.use("/api/suppliers", supplierRoutes);
 
 app.get("/", (req, res) => {
   res.json({
