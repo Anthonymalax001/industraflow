@@ -1,6 +1,16 @@
 node_modules/
+
 .env
 .env.*
+
 dist/
 build/
 coverage/
+
+.vscode/
+**/.vscode/
+
+*.log
+
+backend/debug_*.js
+backend/*-live-test.js
