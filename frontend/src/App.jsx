@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import AppLayout from './layouts/AppLayout'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import Projects from './pages/Projects'
 import Workers from './pages/Workers'
 import Contractors from './pages/Contractors'
@@ -301,45 +302,67 @@ function Dashboard() {
 function App() {
   const { isAuthenticated } = useAuth()
 
+  const currentPath = window.location.pathname
+
+  // ----------------------------------------------------------
+  // PUBLIC AUTHENTICATION PAGES
+  // ----------------------------------------------------------
+
+  // Registration must be checked BEFORE authentication.
+  // A new company does not have a JWT yet.
+  if (currentPath === '/register') {
+    return <Register />
+  }
+
   if (!isAuthenticated) {
     return <Login />
   }
 
-  if (window.location.pathname === '/projects') {
+
+  // ----------------------------------------------------------
+  // AUTHENTICATED APPLICATION ROUTES
+  // ----------------------------------------------------------
+
+  if (currentPath === '/projects') {
     return <Projects />
   }
 
-  if (window.location.pathname === '/workers') {
+  if (currentPath === '/workers') {
     return <Workers />
   }
 
-  if (window.location.pathname === '/contractors') {
+  if (currentPath === '/contractors') {
     return <Contractors />
   }
 
-  if (window.location.pathname === '/suppliers') {
+  if (currentPath === '/suppliers') {
     return <Suppliers />
   }
 
-  if (window.location.pathname === '/assets') {
+  if (currentPath === '/assets') {
     return <Assets />
   }
 
-  if (window.location.pathname === '/compliance') {
+  if (currentPath === '/compliance') {
     return <Compliance />
   }
 
-  if (window.location.pathname === '/incidents') {
+  if (currentPath === '/incidents') {
     return <Incidents />
   }
 
-  if (window.location.pathname === '/work-permits') {
+  if (currentPath === '/work-permits') {
     return <WorkPermits />
   }
 
-  if (window.location.pathname === '/reports') {
+  if (currentPath === '/reports') {
     return <Reports />
   }
+
+
+  // ----------------------------------------------------------
+  // DEFAULT
+  // ----------------------------------------------------------
 
   return <Dashboard />
 }

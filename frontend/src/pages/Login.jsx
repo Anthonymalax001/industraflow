@@ -33,6 +33,7 @@ function Login() {
 
         <div>
           <div className="login-brand-name">IndustraFlow</div>
+
           <div className="login-brand-subtitle">
             Industrial Operations Platform
           </div>
@@ -118,6 +119,20 @@ function Login() {
             {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
+
+        <div className="login-register">
+          <span>New to IndustraFlow?</span>
+
+          <button
+            type="button"
+            className="login-register-button"
+            onClick={() => {
+              window.location.href = '/register'
+            }}
+          >
+            Create your company account
+          </button>
+        </div>
 
         <div className="login-footer">
           <span>Protected by IndustraFlow security</span>
