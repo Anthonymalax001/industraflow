@@ -1,8 +1,15 @@
 const express = require("express");
+
 const bcrypt = require("bcryptjs");
+
 const jwt = require("jsonwebtoken");
 
 const db = require("../db");
+
+const {
+  authLimiter,
+  registrationLimiter,
+} = require("../middleware/rateLimit");
 
 const router = express.Router();
 
@@ -19,7 +26,8 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 REGISTER COMPANY + FIRST COMPANY ADMIN
 =========================================================
 */
-router.post("/register", async (req, res) => {
+
+router.post("/register", registrationLimiter, async (req, res) => {
   const {
     companyName,
     industry,
@@ -79,6 +87,7 @@ router.post("/register", async (req, res) => {
     Check whether this email already exists
     -------------------------------------------------------
     */
+
     const existingUser = await client.query(
       `
       SELECT id
@@ -102,6 +111,7 @@ router.post("/register", async (req, res) => {
     Create company
     -------------------------------------------------------
     */
+
     const companyResult = await client.query(
       `
       INSERT INTO companies (
@@ -131,6 +141,7 @@ router.post("/register", async (req, res) => {
     Hash password
     -------------------------------------------------------
     */
+
     const passwordHash = await bcrypt.hash(String(password), 12);
 
     /*
@@ -138,6 +149,7 @@ router.post("/register", async (req, res) => {
     Create first company administrator
     -------------------------------------------------------
     */
+
     const userResult = await client.query(
       `
       INSERT INTO users (
@@ -171,6 +183,7 @@ router.post("/register", async (req, res) => {
     Commit both records
     -------------------------------------------------------
     */
+
     await client.query("COMMIT");
 
     /*
@@ -178,6 +191,7 @@ router.post("/register", async (req, res) => {
     CREATE LOGIN TOKEN
     -------------------------------------------------------
     */
+
     const token = jwt.sign(
       {
         user_id: user.id,
@@ -193,12 +207,14 @@ router.post("/register", async (req, res) => {
 
     /*
     -------------------------------------------------------
-    Return everything frontend needs for automatic login
+    Return everything frontend needs
     -------------------------------------------------------
     */
+
     return res.status(201).json({
       message: "Company registered successfully",
       token,
+
       company: {
         id: company.id,
         name: company.name,
@@ -206,6 +222,7 @@ router.post("/register", async (req, res) => {
         country: company.country,
         created_at: company.created_at,
       },
+
       user: {
         id: user.id,
         company_id: user.company_id,
@@ -218,7 +235,10 @@ router.post("/register", async (req, res) => {
     try {
       await client.query("ROLLBACK");
     } catch (rollbackError) {
-      console.error("❌ Registration rollback failed:", rollbackError);
+      console.error(
+        "❌ Registration rollback failed:",
+        rollbackError
+      );
     }
 
     console.error("❌ Company registration failed:", error);
@@ -229,6 +249,7 @@ router.post("/register", async (req, res) => {
     catches a race condition.
     -------------------------------------------------------
     */
+
     if (error.code === "23505") {
       return res.status(409).json({
         error: "An account with this email already exists.",
@@ -243,13 +264,13 @@ router.post("/register", async (req, res) => {
   }
 });
 
-
 /*
 =========================================================
 LOGIN
 =========================================================
 */
-router.post("/login", async (req, res) => {
+
+router.post("/login", authLimiter, async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -324,6 +345,7 @@ router.post("/login", async (req, res) => {
     return res.status(200).json({
       message: "Login successful",
       token,
+
       user: {
         id: user.id,
         company_id: user.company_id,
@@ -340,6 +362,5 @@ router.post("/login", async (req, res) => {
     });
   }
 });
-
 
 module.exports = router;

@@ -4,6 +4,10 @@ const cors = require("cors");
 require("dotenv").config();
 require("./db");
 
+const {
+  generalApiLimiter,
+} = require("./middleware/rateLimit");
+
 const authRoutes = require("./routes/auth");
 const companyRoutes = require("./routes/companies");
 const projectRoutes = require("./routes/projects");
@@ -22,10 +26,18 @@ const reportsRoutes = require("./routes/reports");
 
 const app = express();
 
-
 app.use(cors());
 
 app.use(express.json());
+
+/*
+ * General API protection.
+ *
+ * All /api routes are limited to help prevent accidental
+ * request floods and automated abuse.
+ */
+app.use("/api", generalApiLimiter);
+
 app.use("/api/auth", authRoutes);
 app.use("/api/companies", companyRoutes);
 app.use("/api/projects", projectRoutes);
@@ -44,7 +56,7 @@ app.use("/api/reports", reportsRoutes);
 
 app.get("/", (req, res) => {
   res.json({
-    message: "IndustraFlow API running 🚀"
+    message: "IndustraFlow API running 🚀",
   });
 });
 
