@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 
-const API_BASE_URL = 'http://localhost:5000/api'
+const API_BASE_URL = 'https://industraflow.onrender.com/api'
 
 const navigation = [
   { label: 'Dashboard', icon: '⌂', path: '/' },

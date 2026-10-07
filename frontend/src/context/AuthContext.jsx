@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 const AuthContext = createContext(null)
 
-const API_BASE_URL = 'http://localhost:5000/api'
+const API_BASE_URL = 'https://industraflow.onrender.com/api'
 const TOKEN_KEY = 'industrafow_token'
 const USER_KEY = 'industrafow_user'
 

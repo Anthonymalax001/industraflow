@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import AppLayout from '../layouts/AppLayout'
 import { useAuth } from '../context/AuthContext'
 
-const API_BASE_URL = 'http://localhost:5000/api'
+const API_BASE_URL = 'https://industraflow.onrender.com/api'
 
 const incidentTypes = [
   { value: 'all', label: 'All incident types' },
